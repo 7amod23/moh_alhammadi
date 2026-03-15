@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Enhancement #1: SEO & Meta Tags -->
+  <title>MyBio - منصة الروابط الشخصية</title>
+  <meta name="description" content="MyBio - أنشئ صفحة الروابط الشخصية الخاصة بك. شارك جميع روابطك في مكان واحد.">
+  <meta name="keywords" content="bio link, link in bio, رابط حيوي, صفحة شخصية, social media, profile page">
+  <meta name="author" content="Ahmed Ali Platform">
+  <meta name="language" content="ar">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="MyBio - منصة الروابط الشخصية">
+  <meta property="og:description" content="أنشئ صفحة الروابط الشخصية الخاصة بك. شارك جميع روابطك في مكان واحد.">
+  <meta property="og:image" content="https://mybio.ae/img/og-image.png">
+  <meta property="og:url" content="https://mybio.ae">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ar_AE">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="MyBio">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MyBio - منصة الروابط الشخصية">
+  <meta name="twitter:description" content="أنشئ صفحة الروابط الشخصية الخاصة بك. شارك جميع روابطك في مكان واحد.">
+  <meta name="twitter:image" content="https://mybio.ae/img/og-image.png">
+
+  <!-- Alternate languages -->
+  <link rel="alternate" hreflang="ar" href="https://mybio.ae/">
+  <link rel="alternate" hreflang="en" href="https://mybio.ae/en">
+  <link rel="canonical" href="https://mybio.ae/">
+
+  <!-- Enhancement #7: Security - CSP & policies -->
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Enhancement #2: Performance - Preconnect & preload -->
+  <link rel="preconnect" href="https://a7.ae" crossorigin>
+  <link rel="dns-prefetch" href="https://a7.ae">
+  <link rel="preload" href="css/style.css" as="style">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Enhancement #2: Performance - Defer non-critical JS -->
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <script src="https://unpkg.com/htmx.org@1.9.10" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+
+<!-- Enhancement #8: HTMX - hx-boost for faster page transitions -->
+<body
+  x-data
+  hx-boost="true"
+  :data-theme="$store.theme.dark ? 'dark' : 'light'"
+  :class="$store.theme.dark ? 'dark' : ''"
+>
+
+  <!-- Enhancement #3: Accessibility - Skip navigation -->
+  <a href="#main-content" class="skip-link">تخطي إلى المحتوى الرئيسي</a>
+
+  <!-- ===== HEADER / NAVBAR ===== -->
+  <header class="navbar" role="banner">
+    <div class="container navbar-inner">
+      <a href="/" class="logo" aria-label="MyBio - الصفحة الرئيسية">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="var(--accent)"/>
+          <text x="16" y="22" text-anchor="middle" fill="white" font-size="16" font-weight="bold">M</text>
+        </svg>
+        <span>MyBio</span>
+      </a>
+
+      <nav aria-label="القائمة الرئيسية" class="nav-links">
+        <!-- Enhancement #3: Accessibility - ARIA labels -->
+        <a href="/login" class="btn btn-ghost" aria-label="تسجيل الدخول">تسجيل</a>
+        <a href="/register" class="btn btn-primary" aria-label="إنشاء حساب جديد">انشاء</a>
+      </nav>
+
+      <div class="nav-controls">
+        <!-- Enhancement #4: Dark mode toggle as proper button with role -->
+        <button
+          @click="$store.theme.toggle()"
+          class="btn-icon"
+          aria-label="تبديل الوضع المظلم"
+          role="switch"
+          :aria-checked="$store.theme.dark"
+        >
+          <svg x-show="!$store.theme.dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg x-show="$store.theme.dark" x-cloak width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+
+        <!-- Language toggle -->
+        <button
+          @click="$store.lang.toggle()"
+          class="btn-icon lang-toggle"
+          :aria-label="$store.lang.current === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'"
+        >
+          <span x-text="$store.lang.current === 'ar' ? 'EN' : 'ع'"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main id="main-content" role="main">
+
+    <!-- Hero Section -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <h1 id="hero-title" class="hero-title">
+          <span x-show="$store.lang.current === 'ar'">أنشئ صفحتك الشخصية<br>في دقائق</span>
+          <span x-show="$store.lang.current === 'en'" x-cloak>Create Your Bio Page<br>In Minutes</span>
+        </h1>
+        <p class="hero-subtitle">
+          <span x-show="$store.lang.current === 'ar'">شارك جميع روابطك في مكان واحد مع تصميم جذاب واحترافي</span>
+          <span x-show="$store.lang.current === 'en'" x-cloak>Share all your links in one place with a beautiful, professional design</span>
+        </p>
+        <div class="hero-actions">
+          <a href="/register" class="btn btn-primary btn-lg">
+            <span x-show="$store.lang.current === 'ar'">ابدأ مجاناً</span>
+            <span x-show="$store.lang.current === 'en'" x-cloak>Get Started Free</span>
+          </a>
+          <a href="/demo" class="btn btn-outline btn-lg">
+            <span x-show="$store.lang.current === 'ar'">شاهد العرض</span>
+            <span x-show="$store.lang.current === 'en'" x-cloak>See Demo</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" aria-labelledby="features-title">
+      <div class="container">
+        <h2 id="features-title" class="section-title">
+          <span x-show="$store.lang.current === 'ar'">المميزات</span>
+          <span x-show="$store.lang.current === 'en'" x-cloak>Features</span>
+        </h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+              </svg>
+            </div>
+            <h3>
+              <span x-show="$store.lang.current === 'ar'">سريع وسهل</span>
+              <span x-show="$store.lang.current === 'en'" x-cloak>Fast & Easy</span>
+            </h3>
+            <p>
+              <span x-show="$store.lang.current === 'ar'">أنشئ صفحتك في أقل من دقيقة واحدة</span>
+              <span x-show="$store.lang.current === 'en'" x-cloak>Create your page in less than a minute</span>
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <path d="M3 9h18M9 21V9"/>
+              </svg>
+            </div>
+            <h3>
+              <span x-show="$store.lang.current === 'ar'">تصاميم متعددة</span>
+              <span x-show="$store.lang.current === 'en'" x-cloak>Multiple Themes</span>
+            </h3>
+            <p>
+              <span x-show="$store.lang.current === 'ar'">اختر من بين العديد من التصاميم الجاهزة</span>
+              <span x-show="$store.lang.current === 'en'" x-cloak>Choose from many ready-made designs</span>
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3>
+              <span x-show="$store.lang.current === 'ar'">آمن وموثوق</span>
+              <span x-show="$store.lang.current === 'en'" x-cloak>Secure & Reliable</span>
+            </h3>
+            <p>
+              <span x-show="$store.lang.current === 'ar'">بياناتك محمية بأحدث تقنيات الأمان</span>
+              <span x-show="$store.lang.current === 'en'" x-cloak>Your data is protected with latest security</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhancement #8: HTMX - Dynamic content with loading indicators -->
+    <section class="profiles-section" aria-labelledby="profiles-title">
+      <div class="container">
+        <h2 id="profiles-title" class="section-title">
+          <span x-show="$store.lang.current === 'ar'">صفحات مميزة</span>
+          <span x-show="$store.lang.current === 'en'" x-cloak>Featured Profiles</span>
+        </h2>
+
+        <div
+          hx-get="/api/featured-profiles"
+          hx-trigger="load"
+          hx-target="#profiles-grid"
+          hx-indicator="#profiles-loader"
+          hx-on::response-error="document.getElementById('profiles-error').style.display='block'"
+        >
+          <!-- Enhancement #5: Skeleton loading UI -->
+          <div id="profiles-loader" class="htmx-indicator">
+            <div class="skeleton-grid">
+              <div class="skeleton-card">
+                <div class="skeleton skeleton-avatar"></div>
+                <div class="skeleton skeleton-text skeleton-text-title"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-btn"></div>
+              </div>
+              <div class="skeleton-card">
+                <div class="skeleton skeleton-avatar"></div>
+                <div class="skeleton skeleton-text skeleton-text-title"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-btn"></div>
+              </div>
+              <div class="skeleton-card">
+                <div class="skeleton skeleton-avatar"></div>
+                <div class="skeleton skeleton-text skeleton-text-title"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-btn"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- HTMX error fallback -->
+          <div id="profiles-error" class="error-message" style="display:none;" role="alert">
+            <p>
+              <span x-show="$store.lang.current === 'ar'">حدث خطأ في تحميل الصفحات. يرجى المحاولة مرة أخرى.</span>
+              <span x-show="$store.lang.current === 'en'" x-cloak>Failed to load profiles. Please try again.</span>
+            </p>
+            <button class="btn btn-outline" onclick="htmx.trigger(this.closest('[hx-get]'), 'load')">
+              <span x-show="$store.lang.current === 'ar'">إعادة المحاولة</span>
+              <span x-show="$store.lang.current === 'en'" x-cloak>Retry</span>
+            </button>
+          </div>
+
+          <!-- Profiles load here -->
+          <div id="profiles-grid" class="profiles-grid" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <!-- Enhancement #10: Fixed footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-inner">
+      <p>
+        &copy; <span x-text="new Date().getFullYear()"></span> MyBio.
+        <span x-show="$store.lang.current === 'ar'">جميع الحقوق محفوظة.</span>
+        <span x-show="$store.lang.current === 'en'" x-cloak>All rights reserved.</span>
+      </p>
+      <p class="footer-credit">
+        <span x-show="$store.lang.current === 'ar'">صنع بواسطة</span>
+        <span x-show="$store.lang.current === 'en'" x-cloak>Built by</span>
+        <a href="https://a7.ae" target="_blank" rel="noopener noreferrer">Ahmed Ali Platform</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
